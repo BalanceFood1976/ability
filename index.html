@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>청력 자가진단 테스트</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      padding: 30px 20px;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    h2, p, label, button {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    h2 { font-size: 24px; margin-bottom: 10px; animation-delay: 0.2s; }
+    p { margin-bottom: 20px; font-size: 16px; animation-delay: 0.4s; }
+    label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    input[type="checkbox"] { margin-right: 8px; }
+    button {
+      margin-top: 20px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+      animation-delay: 1.4s;
+    }
+    button:hover { background-color: #388e3c; }
+    button:active { box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    label:nth-of-type(1) { animation-delay: 0.6s; }
+    label:nth-of-type(2) { animation-delay: 0.7s; }
+    label:nth-of-type(3) { animation-delay: 0.8s; }
+    label:nth-of-type(4) { animation-delay: 0.9s; }
+    label:nth-of-type(5) { animation-delay: 1.0s; }
+    label:nth-of-type(6) { animation-delay: 1.1s; }
+    label:nth-of-type(7) { animation-delay: 1.2s; }
+    label:nth-of-type(8) { animation-delay: 1.3s; }
+    label:nth-of-type(9) { animation-delay: 1.4s; }
+    label:nth-of-type(10) { animation-delay: 1.5s; }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+  </style>
+</head>
+<body class="fade-in">
+  <h2>청력 자가 진단 테스트</h2>
+  <p>다음 문항을 체크해보세요. 해당되는 항목을 모두 선택하세요.</p>
+  <form id="testForm">
+    <label><input type="checkbox"/> 하루 1시간 이상 이어폰을 사용하는 날이 많다</label>
+    <label><input type="checkbox"/> TV 소리를 가족보다 더 크게 듣는다</label>
+    <label><input type="checkbox"/> 전화 통화 시 상대방 말이 잘 안 들린다</label>
+    <label><input type="checkbox"/> 조용한 공간에서도 귀에서 소리가 들린다</label>
+    <label><input type="checkbox"/> 자주 귀가 먹먹한 느낌이 든다</label>
+    <label><input type="checkbox"/> 공사장, 지하철 등 큰 소음 환경에 자주 있다</label>
+    <label><input type="checkbox"/> 귀를 자주 후빈다</label>
+    <label><input type="checkbox"/> 귀가 갑자기 아프거나 이상한 압력을 느낀다</label>
+    <label><input type="checkbox"/> 가까이 있는 사람의 말도 잘 안 들릴 때가 있다</label>
+    <label><input type="checkbox"/> 청력 검사를 받아본 적이 거의 없다</label>
+    <p>체크 수에 따라 청력 위험도를 확인하세요!</p>
+    <button onclick="checkResult()" type="button">결과 확인하기</button>
+  </form>
+  <script>
+    function checkResult() {
+      const boxes = document.querySelectorAll('input[type="checkbox"]');
+      let count = 0;
+      boxes.forEach(box => { if (box.checked) count++; });
+
+      let page = '';
+      if (count <= 2) page = 'result-low.html';
+      else if (count <= 5) page = 'result-mid.html';
+      else if (count <= 7) page = 'result-high.html';
+      else page = 'result-veryhigh.html';
+
+      document.body.classList.add('fade-out');
+      setTimeout(() => { window.location.href = page; }, 600);
+    }
+  </script>
+</body>
+</html>
